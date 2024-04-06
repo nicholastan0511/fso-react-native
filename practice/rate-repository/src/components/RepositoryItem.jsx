@@ -41,6 +41,13 @@ const styles = StyleSheet.create({
   }
 })
 
+const formatNum = (num) => {
+  if (num / 1000  > 1) {
+    const dividedNum = Math.round((num / 1000) * 10) / 10 .toString()
+    return dividedNum + 'k'
+  }
+}
+
 const RepoItem = ({ item }) => {
   console.log(item)
   return (
@@ -57,11 +64,11 @@ const RepoItem = ({ item }) => {
       </View>
       <View style={styles.ratingContainer}>
         <View style={styles.rating}>
-          <Text title>{item.stargazersCount}</Text>
+          <Text title>{formatNum(item.stargazersCount)}</Text>
           <Text description>Stars</Text>
         </View>
         <View style={styles.rating}>
-          <Text title>{item.forksCount}</Text>
+          <Text title>{formatNum(item.forksCount)}</Text>
           <Text description>Forks</Text>
         </View>
         
