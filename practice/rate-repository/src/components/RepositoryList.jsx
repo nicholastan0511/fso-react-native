@@ -3,8 +3,11 @@ import RepoItem from './RepositoryItem';
 
 const styles = StyleSheet.create({
   separator: {
-    height: 10,
+    height: 10
   },
+  container: {
+    alignItems: 'center'
+  }
 });
 
 const repositories = [
@@ -58,12 +61,14 @@ const ItemSeparator = () => <View style={styles.separator} />;
 
 const RepositoryList = () => {
   return (
-    <FlatList
-      data={repositories}
-      ItemSeparatorComponent={ItemSeparator}
-      renderItem={RepoItem}
-      keyExtractor={item => item.id}
-    />
+    <View style={styles.container}>
+      <FlatList
+        data={repositories}
+        ItemSeparatorComponent={ItemSeparator}
+        renderItem={RepoItem}
+        keyExtractor={item => item.id}
+      />
+    </View>
   );
 };
 

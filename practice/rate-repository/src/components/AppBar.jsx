@@ -6,7 +6,11 @@ import AppBarTab from './AppBarTab';
 const styles= StyleSheet.create({
   container: {
     paddingTop: Constants.statusBarHeight,
-    backgroundColor: theme.backgrounds.appBar
+    backgroundColor: theme.backgrounds.appBar,
+    height: 100,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   }
 })
 
@@ -15,6 +19,8 @@ const AppBar = () => {
   return (
     <View style={styles.container}>
       <AppBarTab tab='Repositories'/>
+      <AppBarTab tab='' />
+      <AppBarTab tab=''/>
     </View>
   )
 }

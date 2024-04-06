@@ -4,17 +4,26 @@ import theme from '../theme';
 const styles = StyleSheet.create({
   defaultText: {
     color: theme.colors.textPrimary,
-    fontSize: theme.colors.body
+    fontSize: theme.fontSizes.body
   },
   appBar: {
-    fontSize: theme.colors.appBar
+    color: theme.colors.textAppBar,
+    fontSize: theme.fontSizes.appBar
+  },
+  title: {
+    fontWeight: theme.fontWeights.title
+  },
+  description: {
+    fontWeight: theme.fontWeights.description
   }
 })
 
-const Text = ({ appBar, style, ...props }) => {
+const Text = ({ appBar, style, title, description, ...props }) => {
   const textStyle = [
     styles.defaultText,
     appBar && styles.appBar,
+    title && styles.title,
+    description && styles.description,
     style
   ];
 
