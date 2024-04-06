@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
   },
   ratingContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-around'
+    justifyContent: 'space-around',
   },
   avatar: {
     width: 50,
@@ -34,10 +34,14 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     backgroundColor: '#2f8dff',
     textAlign: 'center',
-    color: 'white'
+    color: 'white',
+  },
+  button: {
+    padding: 10
   },
   rating: {
-    alignItems: 'center'
+    alignItems: 'center',
+    gap: 7
   }
 })
 
