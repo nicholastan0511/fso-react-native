@@ -6,15 +6,16 @@ const theme = {
   },
   colors: {
     textPrimary: 'black',
-    textAppBar: 'white'
+    textAppBar: 'white',
+    textDesc: 'gray'
   },
   fontSizes: {
-    appBar: 25,
+    appBar: 20,
     body: 15,
   },
   fontWeights: {
     title: 700,
-    description: 300
+    description: 400
   }
 }
 
