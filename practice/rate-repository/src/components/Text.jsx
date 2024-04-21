@@ -15,15 +15,19 @@ const styles = StyleSheet.create({
   },
   description: {
     fontWeight: theme.fontWeights.description
+  },
+  error: {
+    color: theme.colors.error
   }
 })
 
-const Text = ({ appBar, style, title, description, ...props }) => {
+const Text = ({ appBar, style, title, description, error, ...props }) => {
   const textStyle = [
     styles.defaultText,
     appBar && styles.appBar,
     title && styles.title,
     description && styles.description,
+    error && styles.error,
     style
   ];
 

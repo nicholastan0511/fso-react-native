@@ -7,7 +7,8 @@ const theme = {
   colors: {
     textPrimary: 'black',
     textAppBar: 'white',
-    textDesc: 'gray'
+    textDesc: 'gray',
+    error: '#d73a4a'
   },
   fontSizes: {
     appBar: 20,
