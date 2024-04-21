@@ -4,7 +4,8 @@ import theme from '../theme';
 const styles = StyleSheet.create({
   defaultText: {
     color: theme.colors.textPrimary,
-    fontSize: theme.fontSizes.body
+    fontSize: theme.fontSizes.body,
+    fontFamily: theme.fontFamily
   },
   appBar: {
     color: theme.colors.textAppBar,
