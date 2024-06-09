@@ -53,7 +53,6 @@ const formatNum = (num) => {
 }
 
 const RepoItem = ({ item }) => {
-  console.log(item)
   return (
     <View style={styles.container}>
       <View style={styles.avatarContainer}>
