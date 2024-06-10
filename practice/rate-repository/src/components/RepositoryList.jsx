@@ -1,6 +1,7 @@
 import { FlatList, View, StyleSheet } from 'react-native';
 import RepoItem from './RepositoryItem';
 import useRepositories from '../hooks/useRepositories';
+import { useAndroidBackButton, useNavigate } from 'react-router-native';
 
 const styles = StyleSheet.create({
   separator: {
@@ -13,9 +14,11 @@ const styles = StyleSheet.create({
 
 const ItemSeparator = () => <View style={styles.separator} />;
 
-const RepositoryList = () => {
-  
+const RepositoryList = ({ me }) => {
+  const navigate = useNavigate()
   const { repositories } = useRepositories();
+
+  if (!me) navigate('/signin')
 
   //Get the nodes from the edges array
   const repositoryNodes = repositories

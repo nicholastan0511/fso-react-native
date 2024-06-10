@@ -2,8 +2,10 @@ import { StyleSheet, View } from 'react-native';
 import RepositoryList from './RepositoryList';
 import AppBar from './AppBar';
 import theme from '../theme';
-import { Route, Routes, Navigate, Link } from 'react-router-native'
+import { Route, Routes, Navigate, Link, useLocation } from 'react-router-native'
 import SignIn from './SignIn';
+import useMe from '../hooks/useMe';
+import { useEffect } from 'react';
 
 const styles = StyleSheet.create({
   container: {
@@ -17,14 +19,25 @@ const styles = StyleSheet.create({
 });
 
 const Main = () => {
+  const { me, loading } = useMe()
+
+  const location = useLocation();
+
+  useEffect(() => {
+    console.log('Route changed to:', location.pathname);
+  }, [location]);
+
+  if (loading) return <p>loading...</p>
+
   return (
     <View style={styles.container}>
-      <AppBar />
+      <AppBar me={me} loading={loading} />
       <View style={styles.separator}></View>
       <Routes>
-        <Route path='/' element={<RepositoryList/>} />
+        <Route path='/' element={<RepositoryList me={me}/>} />
         <Route path='/signin' element={<SignIn />} />
-        <Route path='*' element={<Navigate to='/' replace />} />
+        <Route path='*' element={<Navigate to='/'  />} />
+        <Route path='/repo' element={<RepositoryList />} />
       </Routes>
     </View>
   );

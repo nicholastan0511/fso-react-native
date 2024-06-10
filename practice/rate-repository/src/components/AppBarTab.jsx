@@ -2,12 +2,12 @@ import { Pressable } from "react-native"
 import Text from "./Text"
 import { Link } from "react-router-native";
 
-const AppBarTab = ({ tab, link }) => {
+const AppBarTab = ({ tab, link, onClick }) => {
   console.log(tab)
   return (
     <Pressable>
-      <Link to={link}>
-        <Text appBar>{tab}</Text>
+      <Link to={link} onPress={onClick}>
+        <Text appBar >{tab}</Text>
       </Link>
     </Pressable>
   )
