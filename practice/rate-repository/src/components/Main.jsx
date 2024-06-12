@@ -4,6 +4,7 @@ import AppBar from './AppBar';
 import theme from '../theme';
 import { Route, Routes, Navigate, Link, useLocation } from 'react-router-native'
 import SignIn from './SignIn';
+import { RepoItemById } from './RepositoryItem';
 import useMe from '../hooks/useMe';
 import { useEffect } from 'react';
 
@@ -38,6 +39,7 @@ const Main = () => {
         <Route path='/signin' element={<SignIn />} />
         <Route path='*' element={<Navigate to='/'  />} />
         <Route path='/repo' element={<RepositoryList />} />
+        <Route path='/repos/:id' element={<RepoItemById />} />
       </Routes>
     </View>
   );
