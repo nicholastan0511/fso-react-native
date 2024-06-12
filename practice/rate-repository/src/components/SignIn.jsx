@@ -53,9 +53,12 @@ const SignIn = () => {
 
   const [signIn] = useSignIn()
 
+  return <SignInContainer signIn={signIn} navigate={navigate} />
+};
+
+export const SignInContainer = ({ signIn, navigate }) => {
   const onSubmit = async (values) => {
     const { username, password } = values
-
 
     try {
       const { data } = await signIn({ username, password })
@@ -97,6 +100,6 @@ const SignIn = () => {
       </Pressable>
     </View>
   );
-};
+}
 
 export default SignIn;

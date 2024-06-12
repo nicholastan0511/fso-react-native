@@ -46,15 +46,17 @@ const styles = StyleSheet.create({
 })
 
 const formatNum = (num) => {
-  if (num / 1000  > 1) {
+  if (num >= 1000 && num / 1000  > 1) {
     const dividedNum = Math.round((num / 1000) * 10) / 10 .toString()
     return dividedNum + 'k'
   }
+
+  return num
 }
 
 const RepoItem = ({ item }) => {
   return (
-    <View style={styles.container}>
+    <View style={styles.container} testID='repositoryItem'>
       <View style={styles.avatarContainer}>
         <Image style={styles.avatar} source={item.ownerAvatarUrl} />
         <View style={styles.descriptionContainer}>

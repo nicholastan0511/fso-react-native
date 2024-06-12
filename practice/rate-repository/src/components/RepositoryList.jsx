@@ -1,7 +1,7 @@
 import { FlatList, View, StyleSheet } from 'react-native';
 import RepoItem from './RepositoryItem';
 import useRepositories from '../hooks/useRepositories';
-import { useAndroidBackButton, useNavigate } from 'react-router-native';
+import { useNavigate } from 'react-router-native';
 
 const styles = StyleSheet.create({
   separator: {
@@ -19,12 +19,15 @@ const RepositoryList = ({ me }) => {
   const { repositories } = useRepositories();
 
   if (!me) navigate('/signin')
+    
+  return <RepositoryListContainer repositories={repositories} />
+};
 
+export const RepositoryListContainer = ({ repositories }) => {
   //Get the nodes from the edges array
   const repositoryNodes = repositories
-    ? repositories.edges.map(edge => edge.node)
-    : [];
-
+  ? repositories.edges.map(edge => edge.node)
+  : [];
 
   return (
     <View style={styles.container}>
@@ -36,6 +39,6 @@ const RepositoryList = ({ me }) => {
       />
     </View>
   );
-};
+}
 
 export default RepositoryList; 
