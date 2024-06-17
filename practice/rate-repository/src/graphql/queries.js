@@ -42,6 +42,20 @@ export const GET_ONE_REPO = gql`
       ratingAverage
       forksCount
       stargazersCount
+      reviews {
+        edges {
+          node {
+            id
+            text
+            rating
+            createdAt
+            user {
+              id
+              username
+            }
+          }
+        }
+      }
     }
   }
 `

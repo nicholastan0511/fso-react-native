@@ -6,10 +6,22 @@ export const SIGN_IN = gql`
       accessToken
       expiresAt
       user {
-        username,
-        id,
+        username
+        id
         reviewCount
       }
     }
   }
 `
+
+export const CREATE_REVIEW = gql`
+  mutation CreateReview($review: CreateReviewInput) {
+  createReview(review: $review) {
+      createdAt,
+      id
+      rating
+      text
+      repositoryId
+    }
+  }
+` 

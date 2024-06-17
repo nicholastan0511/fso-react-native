@@ -1,6 +1,7 @@
 import { StyleSheet, View } from 'react-native';
 import RepositoryList from './RepositoryList';
 import AppBar from './AppBar';
+import ReviewForm from './CreateReview';
 import theme from '../theme';
 import { Route, Routes, Navigate, Link, useLocation } from 'react-router-native'
 import SignIn from './SignIn';
@@ -12,7 +13,7 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     flexShrink: 1,
-    backgroundColor: theme.backgrounds.body
+    backgroundColor: theme.backgrounds.body,
   },
   separator: {
     height: 30
@@ -40,6 +41,7 @@ const Main = () => {
         <Route path='*' element={<Navigate to='/'  />} />
         <Route path='/repo' element={<RepositoryList />} />
         <Route path='/repos/:id' element={<RepoItemById />} />
+        <Route path='/createreview' element={<ReviewForm />} />
       </Routes>
     </View>
   );

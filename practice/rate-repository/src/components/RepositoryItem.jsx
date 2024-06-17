@@ -1,9 +1,11 @@
-import { View, StyleSheet, Image, Pressable } from 'react-native'
+import { View, StyleSheet, Image, Pressable, FlatList } from 'react-native'
 import Text from './Text'
 import theme from '../theme'
 import { useParams, Link } from 'react-router-native'
 import useOneRepo from '../hooks/useOneRepo'
 import * as Linking from 'expo-linking'
+import { ItemSeparator } from './RepositoryList'
+import { format } from 'date-fns'
 
 const styles = StyleSheet.create({
   container: {
@@ -11,7 +13,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.backgrounds.repoItem,
     padding: 20,
     borderRadius: 10,
-    gap: 30
+    gap: 30,
   },
   avatarContainer: {
     flexDirection: 'row',
@@ -54,7 +56,34 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     padding: 10,
     alignSelf: 'center'
-  }
+  },
+  listHeadRepo: {
+    marginBottom: 10
+  },
+  containerItem: {
+    flexDirection: 'row',
+    backgroundColor: theme.backgrounds.repoItem,
+    padding: 20,
+    borderRadius: 10,
+    gap: 30,
+    minHeight: 250,
+    justifyContent: 'space-between',
+  },
+  containerDescription: {
+    flexDirection: 'column',
+    justifyContent: 'space-around'
+  },
+  containerRatingItem: {
+    width: 40,
+    height: 40,
+    borderRadius: 40/2,
+    borderStyle: 'solid',
+    borderColor: 'blue',
+    borderWidth: 4,
+    textAlign: 'center',
+    justifyContent: 'center', // Align text vertically in the center
+    alignItems: 'center', // Align text horizontally in the center
+  },
 })
 
 const formatNum = (num) => {
@@ -78,7 +107,7 @@ const RepoItemContainer = ({ item, byId }) => {
   }
 
   return (
-    <Link to={`/repos/${item.id}`}>
+    <Link to={`/repos/${item.id}`} style={styles.listHeadRepo}>
         <View style={styles.container} testID='repositoryItem'>
           <View style={styles.avatarContainer}>
             <Image style={styles.avatar} source={item.ownerAvatarUrl} />
@@ -121,13 +150,31 @@ const RepoItemContainer = ({ item, byId }) => {
         </View>
       </Link>
   )
-  }
+}
+
+const ReviewItem = ({ review }) => {
+  const formattedDate = format(review.createdAt, 'dd/MM/yyyy')
+
+  return (
+    <View style={styles.containerItem}>
+      <View style={styles.containerRatingItem}> 
+        <Text >
+          {review.rating}
+        </Text>
+      </View>
+      <View style={styles.containerDescription}>
+        <Text>{review.user.username}</Text>
+        <Text>{formattedDate}</Text>
+        <Text>{review.text}</Text>
+      </View>
+    </View>
+  )
+}
+
 
 export const RepoItemById = () => {
   const { id } = useParams()
-  console.log(id)
   const { repo, loading, error} = useOneRepo(id)
-
 
   if (loading) {
     return <p>Loading...</p>;
@@ -141,10 +188,17 @@ export const RepoItemById = () => {
     return <p>Not found...</p>;
   }
 
+  const reviews = repo.reviews.edges.map(edge => edge.node)
+  console.log(reviews)
   return (
-    <RepoItemContainer item={repo} byId='true' />
+    <FlatList 
+      data={reviews}
+      renderItem={({ item }) => <ReviewItem review={item} />}
+      keyExtractor={({ id }) => id}
+      ListHeaderComponent={() => <RepoItemContainer item={repo} byId='true' />}
+      ItemSeparatorComponent={<ItemSeparator />}
+    />
   )
-
 }
 
 export default RepoItem;
