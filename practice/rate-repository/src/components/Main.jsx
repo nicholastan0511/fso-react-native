@@ -8,6 +8,7 @@ import SignIn from './SignIn';
 import { RepoItemById } from './RepositoryItem';
 import useMe from '../hooks/useMe';
 import { useEffect } from 'react';
+import SignUp from './SignUp';
 
 const styles = StyleSheet.create({
   container: {
@@ -42,6 +43,7 @@ const Main = () => {
         <Route path='/repo' element={<RepositoryList />} />
         <Route path='/repos/:id' element={<RepoItemById />} />
         <Route path='/createreview' element={<ReviewForm />} />
+        <Route path='/signup' element={<SignUp />} />
       </Routes>
     </View>
   );
