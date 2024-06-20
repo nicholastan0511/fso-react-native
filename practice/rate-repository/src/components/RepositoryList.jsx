@@ -2,6 +2,7 @@ import { FlatList, View, StyleSheet } from 'react-native';
 import RepoItem from './RepositoryItem';
 import useRepositories from '../hooks/useRepositories';
 import { useNavigate } from 'react-router-native';
+import Text from './Text';
 
 const styles = StyleSheet.create({
   separator: {
@@ -14,11 +15,11 @@ const styles = StyleSheet.create({
 
 export const ItemSeparator = () => <View style={styles.separator} />;
 
-const RepositoryList = ({ me }) => {
-  const navigate = useNavigate()
+const RepositoryList = () => {
+  // const navigate = useNavigate()
   const { repositories } = useRepositories();
 
-  if (!me) navigate('/signin')
+  // if (!me) navigate('/signin')
     
   return <RepositoryListContainer repositories={repositories} />
 };

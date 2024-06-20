@@ -49,20 +49,20 @@ const validationSchema = yup.object().shape({
 })
 
 const SignIn = () => {
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
 
   const [signIn] = useSignIn()
 
-  return <SignInContainer signIn={signIn} navigate={navigate} />
+  return <SignInContainer signIn={signIn} />
 };
 
-export const SignInContainer = ({ signIn, navigate }) => {
+export const SignInContainer = ({ signIn }) => {
+
   const onSubmit = async (values) => {
     const { username, password } = values
 
     try {
       await signIn({ username, password })
-      navigate('/')
     } catch (e) {
       console.log(e)
     }
