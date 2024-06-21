@@ -10,6 +10,7 @@ import useMe from '../hooks/useMe';
 import { useEffect } from 'react';
 import SignUp from './SignUp';
 import { useState } from 'react';
+import Text from './Text';
 
 const styles = StyleSheet.create({
   container: {
@@ -32,7 +33,7 @@ const Main = () => {
     setUser(me)
   }, [location, me]);
 
-  if (loading) return <p>loading...</p>
+  if (loading) return <Text>loading...</Text>
 
   console.log(user)
 

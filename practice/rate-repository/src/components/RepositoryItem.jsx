@@ -177,15 +177,15 @@ export const RepoItemById = () => {
   const { repo, loading, error} = useOneRepo(id)
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <Text>Loading...</Text>;
   }
 
   if (error) {
-    return <p>Error: {error.message}</p>;
+    return <Text>Error: {error.message}</Text>;
   }
 
   if (!repo) {
-    return <p>Not found...</p>;
+    return <Text>Not found...</Text>;
   }
 
   const reviews = repo.reviews.edges.map(edge => edge.node)
