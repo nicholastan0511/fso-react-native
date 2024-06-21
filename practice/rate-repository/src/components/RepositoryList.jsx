@@ -1,16 +1,9 @@
 import { FlatList, View, StyleSheet } from 'react-native';
-import Text from './Text';
 import RepoItem from './RepositoryItem';
 import useRepositories from '../hooks/useRepositories';
 import { Picker } from '@react-native-picker/picker'
 import { useState, useEffect } from 'react';
-import { loadErrorMessages, loadDevMessages } from "@apollo/client/dev";
-
-if (__DEV__) {
-  // Adds messages only in a dev environment
-  loadDevMessages();
-  loadErrorMessages();
-}
+import SearchForm from './SearchBar';
 
 const styles = StyleSheet.create({
   separator: {
@@ -50,25 +43,34 @@ export const RepositoryListContainer = ({ repositories, refetch }) => {
 
   return (
     <View style={styles.container}>
-      <Picker
-        selectedValue={orderBy}
-        onValueChange={(itemValue, itemIndex) => setOrderBy(itemValue)}
-      >
-        <Picker.Item label="Rating Average" value="RATING_AVERAGE" />
-        <Picker.Item label="Date of Creation" value="CREATED_AT" />
-      </Picker>
-      <Picker
-        selectedValue={orderDirection}
-        onValueChange={(itemValue, itemIndex) => setOrderDirection(itemValue)}
-      >
-        <Picker.Item label="Descending" value="DESC" />
-        <Picker.Item label="Ascending" value="ASC" />
-      </Picker>
+    
+
+ 
       <FlatList
         data={repositoryNodes}
         ItemSeparatorComponent={ItemSeparator}
         renderItem={RepoItem}
         keyExtractor={item => item.id}
+        ListHeaderComponent={      
+          <>
+            <SearchForm refetch={refetch} />
+            <Picker
+              selectedValue={orderBy}
+              onValueChange={(itemValue, itemIndex) => setOrderBy(itemValue)}
+            >
+      
+              <Picker.Item label="Rating Average" value="RATING_AVERAGE" />
+              <Picker.Item label="Date of Creation" value="CREATED_AT" />
+            </Picker>
+            <Picker
+            selectedValue={orderDirection}
+            onValueChange={(itemValue, itemIndex) => setOrderDirection(itemValue)}
+            >
+              <Picker.Item label="Descending" value="DESC" />
+              <Picker.Item label="Ascending" value="ASC" />
+            </Picker>
+          </>
+        }
       />
     </View>
   );
