@@ -43,9 +43,6 @@ export const RepositoryListContainer = ({ repositories, refetch }) => {
 
   return (
     <View style={styles.container}>
-    
-
- 
       <FlatList
         data={repositoryNodes}
         ItemSeparatorComponent={ItemSeparator}

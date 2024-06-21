@@ -5,9 +5,9 @@ import { useParams, Link } from 'react-router-native'
 import useOneRepo from '../hooks/useOneRepo'
 import * as Linking from 'expo-linking'
 import { ItemSeparator } from './RepositoryList'
-import { format } from 'date-fns'
+import ReviewItem from './ReviewItem'
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   container: {
     justifyContent: 'space-between',
     backgroundColor: theme.backgrounds.repoItem,
@@ -151,26 +151,6 @@ const RepoItemContainer = ({ item, byId }) => {
       </Link>
   )
 }
-
-const ReviewItem = ({ review }) => {
-  const formattedDate = format(review.createdAt, 'dd/MM/yyyy')
-
-  return (
-    <View style={styles.containerItem}>
-      <View style={styles.containerRatingItem}> 
-        <Text >
-          {review.rating}
-        </Text>
-      </View>
-      <View style={styles.containerDescription}>
-        <Text>{review.user.username}</Text>
-        <Text>{formattedDate}</Text>
-        <Text>{review.text}</Text>
-      </View>
-    </View>
-  )
-}
-
 
 export const RepoItemById = () => {
   const { id } = useParams()

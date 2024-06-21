@@ -3,7 +3,7 @@ import RepositoryList from './RepositoryList';
 import AppBar from './AppBar';
 import ReviewForm from './CreateReview';
 import theme from '../theme';
-import { Route, Routes, Navigate, Link, useLocation, useNavigate } from 'react-router-native'
+import { Route, Routes, Navigate, useLocation } from 'react-router-native'
 import SignIn from './SignIn';
 import { RepoItemById } from './RepositoryItem';
 import useMe from '../hooks/useMe';
@@ -11,6 +11,7 @@ import { useEffect } from 'react';
 import SignUp from './SignUp';
 import { useState } from 'react';
 import Text from './Text';
+import MyReviews from './MyReviews';
 
 const styles = StyleSheet.create({
   container: {
@@ -25,7 +26,7 @@ const styles = StyleSheet.create({
 
 const Main = () => {
   const [user, setUser] = useState(null)
-  const { me, loading } = useMe()
+  const { me, loading, refetch } = useMe()
   const location = useLocation();
 
   useEffect(() => {
@@ -49,6 +50,7 @@ const Main = () => {
         <Route path='/repos/:id' element={<RepoItemById />} />
         <Route path='/createreview' element={<ReviewForm />} />
         <Route path='/signup' element={<SignUp />} />
+        <Route path='/myreviews' element={<MyReviews refetch={refetch} me={me} loading={loading} />} />
       </Routes>
     </View>
   );

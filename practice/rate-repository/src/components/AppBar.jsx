@@ -45,6 +45,7 @@ const AppBar = ({ me, loading }) => {
             <>
               <AppBarTab tab='Repositories' link='/' />
               <AppBarTab tab='Create a Review' link='/createreview' />
+              <AppBarTab tab='My Reviews' link='/myreviews' />
               <AppBarTab tab='Sign Out' onClick={signOut} link='/signin' />
             </>
           ) 
