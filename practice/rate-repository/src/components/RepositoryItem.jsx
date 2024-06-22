@@ -65,7 +65,7 @@ export const styles = StyleSheet.create({
     backgroundColor: theme.backgrounds.repoItem,
     padding: 20,
     borderRadius: 10,
-    gap: 30,
+    gap: 300,
     minHeight: 250,
     justifyContent: 'space-between',
   },
@@ -84,6 +84,9 @@ export const styles = StyleSheet.create({
     justifyContent: 'center', // Align text vertically in the center
     alignItems: 'center', // Align text horizontally in the center
   },
+  bigContainer: {
+    display: 'flex',
+  }
 })
 
 const formatNum = (num) => {
@@ -147,8 +150,8 @@ const RepoItemContainer = ({ item, byId }) => {
             )
             : <></>
           }
-        </View>
-      </Link>
+      </View>
+    </Link>
   )
 }
 

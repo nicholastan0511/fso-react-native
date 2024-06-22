@@ -25,32 +25,32 @@ const styles = StyleSheet.create({
 });
 
 const Main = () => {
-  const [user, setUser] = useState(null)
-  const { me, loading, refetch } = useMe()
+  const { me, loading, handleRefetch } = useMe(false)
   const location = useLocation();
+
+  console.log(typeof handleRefetch)
 
   useEffect(() => {
     console.log('Route changed to:', location.pathname);
-    setUser(me)
-  }, [location, me]);
+  }, [location]);
 
   if (loading) return <Text>loading...</Text>
 
-  console.log(user)
+  // console.log(user)
 
   return (
     <View style={styles.container}>
       <AppBar me={me} loading={loading} />
       <View style={styles.separator}></View>
       <Routes>
-        <Route path='/' element={ user ? <RepositoryList /> : <Navigate to='/signin' />} />
-        <Route path='/signin' element={!user ? <SignIn /> : <Navigate to='/' />} />
+        <Route path='/' element={ me ? <RepositoryList /> : <Navigate to='/signin' />} />
+        <Route path='/signin' element={!me ? <SignIn /> : <Navigate to='/' />} />
         <Route path='*' element={<Navigate to='/'  />} />
         <Route path='/repo' element={<RepositoryList />} />
         <Route path='/repos/:id' element={<RepoItemById />} />
-        <Route path='/createreview' element={<ReviewForm />} />
+        <Route path='/createreview' element={<ReviewForm handleRefetch={handleRefetch} />} />
         <Route path='/signup' element={<SignUp />} />
-        <Route path='/myreviews' element={<MyReviews refetch={refetch} me={me} loading={loading} />} />
+        <Route path='/myreviews' element={<MyReviews handleRefetch={handleRefetch} me={me} loading={loading} location={location} />} />
       </Routes>
     </View>
   );

@@ -60,9 +60,10 @@ const validationSchema = yup.object().shape({
         .required('Review is required')
 })
 
-const ReviewForm = () => {
+const ReviewForm = ({ handleRefetch }) => {
   const [createReview, errorMessage] = useCreateReview()
   const navigate = useNavigate()
+
 
   const onSubmit = async (values) => {
     const { ownerName, repositoryName, rating, text } = values
@@ -71,6 +72,7 @@ const ReviewForm = () => {
       const { data } = await createReview({ ownerName, repositoryName, rating: Number(rating), text })
       const repoId = data.createReview.repositoryId
       navigate(`/repos/${repoId}`)
+      await handleRefetch(false)
     } catch (e){
       console.log(e.message)
     }

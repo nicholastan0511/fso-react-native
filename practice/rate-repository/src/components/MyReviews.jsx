@@ -1,28 +1,29 @@
-import { useEffect } from "react"
 import ReviewItem from "./ReviewItem"
 import Text from "./Text"
 import { FlatList } from "react-native"
 import { ItemSeparator } from "./RepositoryList"
+import { useEffect } from "react"
 
-const MyReviews = ({ refetch, me, loading }) => {
+const MyReviews = ({ handleRefetch, loading, me }) => {
+  
+  const refetch = async () => {
+    await handleRefetch(true)
+  }
+
   useEffect(() => {
-    handleRefetch()
+    refetch()
   }, [])
 
-  const handleRefetch = async () => {
-    await refetch({ includeReviews: true })
-  }
 
   if (loading) return <Text>loading...</Text>
 
-  const reviews = me ? me.reviews ? me.reviews.edges.map(edge => edge.node) : [] : []
 
-  console.log(reviews)
+  const reviews = me ? me.reviews ? me.reviews.edges.map(edge => edge.node) : [] : []
 
   return (
     <FlatList 
       data={reviews}
-      renderItem={({ item }) => <ReviewItem review={item} />}
+      renderItem={({ item }) => <ReviewItem review={item} myReview='true' refetch={handleRefetch} />}
       keyExtractor={({ id }) => id}
       ItemSeparatorComponent={<ItemSeparator />}
     />

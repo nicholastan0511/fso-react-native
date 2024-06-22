@@ -1,19 +1,26 @@
 import { GET_ME } from "../graphql/queries"
 import { useQuery } from "@apollo/client"
 
-const useMe = () => {
+const useMe = (includeReviews) => {
   const { data, loading, error, refetch } = useQuery(GET_ME, {
-    fetchPolicy: 'cache-and-network',
     variables: {
-      includeReviews: false
+      includeReviews
     }
   })
+
+  const handleRefetch = async (includeReviews) => {
+    const data = await refetch({
+      includeReviews
+    })
+
+    return data
+  }
 
   let me
   if (!loading && !error)
     me = data.me
 
-  return { me, loading, error, refetch }
+  return { me, loading, error, handleRefetch }
 }
 
 export default useMe
