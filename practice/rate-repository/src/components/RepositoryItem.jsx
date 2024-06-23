@@ -157,7 +157,11 @@ const RepoItemContainer = ({ item, byId }) => {
 
 export const RepoItemById = () => {
   const { id } = useParams()
-  const { repo, loading, error} = useOneRepo(id)
+  const { repo, loading, error, fetchMore } = useOneRepo(id)
+
+  const onEndReached = () => {
+    fetchMore()
+  }
 
   if (loading) {
     return <Text>Loading...</Text>;
@@ -180,6 +184,8 @@ export const RepoItemById = () => {
       keyExtractor={({ id }) => id}
       ListHeaderComponent={() => <RepoItemContainer item={repo} byId='true' />}
       ItemSeparatorComponent={<ItemSeparator />}
+      onEndReached={onEndReached}
+      onEndReachedThreshold={0.5}
     />
   )
 }

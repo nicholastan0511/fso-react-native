@@ -17,11 +17,16 @@ const styles = StyleSheet.create({
 export const ItemSeparator = () => <View style={styles.separator} />;
 
 const RepositoryList = () => {
-  const { repositories, refetch, loading } = useRepositories()
-  return <RepositoryListContainer repositories={repositories} refetch={refetch} loading={loading} />
+  const { repositories, refetch, loading, fetchMore } = useRepositories()
+  const onEndReached = () => {
+    console.log('im called')
+    fetchMore()
+  }
+
+  return <RepositoryListContainer repositories={repositories} refetch={refetch} loading={loading} onEndReached={onEndReached} />
 };
 
-export const RepositoryListContainer = ({ repositories, refetch }) => {
+export const RepositoryListContainer = ({ repositories, refetch, onEndReached }) => {
   const [orderBy, setOrderBy] = useState('RATING_AVERAGE')
   const [orderDirection, setOrderDirection] = useState('DESC')
 
@@ -48,6 +53,8 @@ export const RepositoryListContainer = ({ repositories, refetch }) => {
         ItemSeparatorComponent={ItemSeparator}
         renderItem={RepoItem}
         keyExtractor={item => item.id}
+        onEndReached={onEndReached}
+        onEndReachedThreshold={0.5}
         ListHeaderComponent={      
           <>
             <SearchForm refetch={refetch} />

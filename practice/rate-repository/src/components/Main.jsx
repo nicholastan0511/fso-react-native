@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, ScrollView } from 'react-native';
 import RepositoryList from './RepositoryList';
 import AppBar from './AppBar';
 import ReviewForm from './CreateReview';
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
 });
 
 const Main = () => {
-  const { me, loading, handleRefetch } = useMe(false)
+  const { me, loading, handleRefetch, errorMessage } = useMe(false)
   const location = useLocation();
 
   console.log(typeof handleRefetch)
@@ -42,16 +42,19 @@ const Main = () => {
     <View style={styles.container}>
       <AppBar me={me} loading={loading} />
       <View style={styles.separator}></View>
-      <Routes>
-        <Route path='/' element={ me ? <RepositoryList /> : <Navigate to='/signin' />} />
-        <Route path='/signin' element={!me ? <SignIn /> : <Navigate to='/' />} />
-        <Route path='*' element={<Navigate to='/'  />} />
-        <Route path='/repo' element={<RepositoryList />} />
-        <Route path='/repos/:id' element={<RepoItemById />} />
-        <Route path='/createreview' element={<ReviewForm handleRefetch={handleRefetch} />} />
-        <Route path='/signup' element={<SignUp />} />
-        <Route path='/myreviews' element={<MyReviews handleRefetch={handleRefetch} me={me} loading={loading} location={location} />} />
-      </Routes>
+      {errorMessage ? <Text>{errorMessage}</Text> : null}
+      {/* <ScrollView> */}
+        <Routes>
+          <Route path='/' element={ me ? <RepositoryList /> : <Navigate to='/signin' />} />
+          <Route path='/signin' element={!me ? <SignIn /> : <Navigate to='/' />} />
+          <Route path='*' element={<Navigate to='/'  />} />
+          <Route path='/repo' element={<RepositoryList />} />
+          <Route path='/repos/:id' element={<RepoItemById />} />
+          <Route path='/createreview' element={<ReviewForm handleRefetch={handleRefetch} />} />
+          <Route path='/signup' element={<SignUp />} />
+          <Route path='/myreviews' element={<MyReviews handleRefetch={handleRefetch} me={me} loading={loading} location={location} />} />
+        </Routes>
+      {/* </ScrollView> */}
     </View>
   );
 };
